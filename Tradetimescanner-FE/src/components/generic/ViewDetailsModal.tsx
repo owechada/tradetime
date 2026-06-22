@@ -8,23 +8,26 @@ import { MdClose, MdInsights } from "react-icons/md";
 export default ({ show, item }: any) => {
   return (
     <>
-      <div className="fixed inset-0 z-[200] flex justify-center items-center bg-black/40 backdrop-blur-sm">
-        <div className="flex flex-col max-h-[85vh] rounded-2xl bg-white w-[92vw] md:w-[500px] shadow-2xl border border-gray-100 overflow-hidden">
+      <div className="fixed inset-0 z-[200] flex justify-center items-center bg-black/40 backdrop-blur-md p-4">
+        <div className="flex flex-col max-h-[85vh] rounded-3xl bg-white w-full max-w-[500px] shadow-2xl shadow-black/20 border border-gray-100/50 overflow-hidden animate-modal-in">
           {/* Header */}
-          <div className="flex items-center justify-between p-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-blue-50/50">
+          <div className="flex items-center justify-between p-5 border-b border-gray-100/80 bg-gradient-to-r from-gray-50/80 to-blue-50/30">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-r from-primary to-blue-600 rounded-lg">
+              <div className="p-2.5 bg-gradient-to-br from-primary to-blue-600 rounded-xl shadow-md shadow-primary/25">
                 <MdInsights className="text-white" size={16} />
               </div>
-              <h2 className="font-bold text-gray-900 text-lg">
-                {item?.market == "Strategy generator" ? "Generated Strategy" : "Scan Details"}
-              </h2>
+              <div>
+                <h2 className="font-bold text-gray-900 text-base">
+                  {item?.market == "Strategy generator" ? "Generated Strategy" : "Scan Details"}
+                </h2>
+                <p className="text-xs text-gray-400">Analysis report</p>
+              </div>
             </div>
             <button
               onClick={() => show(false)}
-              className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-xl hover:bg-gray-100 transition-all duration-200 hover:rotate-90"
             >
-              <MdClose size={20} className="text-gray-500" />
+              <MdClose size={20} className="text-gray-400 hover:text-gray-600" />
             </button>
           </div>
 

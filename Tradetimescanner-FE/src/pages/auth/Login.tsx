@@ -118,15 +118,15 @@ const Login = () => {
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="font-bold text-gray-800 text-[28px] md:text-[26px] leading-tight mb-3">
+            <h1 className="font-bold text-gray-900 text-[26px] md:text-[28px] leading-tight mb-2">
               Welcome back!
             </h1>
-            <p className="text-gray-600 text-sm md:text-base mb-4">
+            <p className="text-gray-500 text-sm mb-4">
               Please log in to continue to your account.
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-500">
               New here?{" "}
-              <Link className="text-primary font-semibold hover:text-blue-700 transition-colors" to="/signup">
+              <Link className="text-primary font-semibold hover:text-blue-700 transition-colors underline-offset-2 hover:underline" to="/signup">
                 Create an account
               </Link>
             </p>

@@ -43,7 +43,7 @@ export default ({ item, refresh, setselectedscan, setshowmodal }: any) => {
   return (
     <>
       <div className="h-full overflow-y-hidden">
-        <div className="rounded-xl relative shadow-lg bg-white/95 backdrop-blur-sm border border-gray-200 px-6 py-4 flex justify-between gap-4 hover:shadow-xl transition-all duration-300 group">
+        <div className="rounded-2xl relative shadow-md bg-white/90 backdrop-blur-sm border border-gray-100/80 px-5 py-4 flex justify-between gap-4 hover:shadow-xl hover:border-primary/10 transition-all duration-300 group">
           {item.market != "Strategy generator" ? (
             <div className="flex flex-col overflow-x-hidden flex-1">
               <div className="flex items-center space-x-2 mb-3">

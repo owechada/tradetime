@@ -92,7 +92,7 @@ export default () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95">
 
-              <Menu.Items className={`origin-top-right absolute right-0 mt-2 rounded-xl shadow-2xl p-2 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200 py-3 z-[200] focus:outline-none border border-gray-100 ${isMobile ? 'w-52 -mr-2' : isTablet ? 'w-56' : 'w-60'
+              <Menu.Items className={`origin-top-right absolute right-0 mt-3 rounded-2xl shadow-2xl shadow-gray-200/50 p-2 bg-white backdrop-blur-xl ring-1 ring-gray-100 py-3 z-[200] focus:outline-none border border-gray-100/50 ${isMobile ? 'w-56 -mr-2' : isTablet ? 'w-60' : 'w-64'
                 }`}>
                 <Menu.Item>
                   <div className="p-4 bg-gradient-to-r from-gray-900 to-gray-800 flex rounded-lg mb-2">

@@ -133,8 +133,8 @@ const RegisterAccount = () => {
       {/* Right side - Signup Form */}
       <div className="flex items-center justify-center md:px-8 h-screen md:h-full overflow-scroll md:overflow-hidden">
         <div
-          className={`bg-white ${isTabletOrMobile ? "min-h-screen w-full" : "md:max-w-[500px] w-full rounded-2xl"
-            } px-8 md:px-12 py-10 md:py-12 shadow-xl flex flex-col justify-center`}
+          className={`bg-white ${isTabletOrMobile ? "min-h-screen w-full" : "md:max-w-[480px] w-full rounded-3xl"
+            } px-8 md:px-12 py-10 md:py-12 shadow-2xl shadow-gray-200/50 border border-gray-100 flex flex-col justify-center`}
         >
           {/* Mobile Logo */}
           {isTabletOrMobile && (
@@ -146,12 +146,12 @@ const RegisterAccount = () => {
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="font-bold text-gray-800 text-[28px] md:text-[26px] leading-tight mb-3">
+            <h1 className="font-bold text-gray-900 text-[26px] md:text-[28px] leading-tight mb-2">
               Create Account
             </h1>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-500">
               Already have an account?{" "}
-              <Link className="text-primary font-semibold hover:text-blue-700 transition-colors" to="/">
+              <Link className="text-primary font-semibold hover:text-blue-700 transition-colors underline-offset-2 hover:underline" to="/">
                 Login
               </Link>
             </p>
