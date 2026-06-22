@@ -173,34 +173,31 @@ export default () => {
     updateUser();
   }, []);
   return (
-    <div className=" p-3 bg-white px-10 flex justify-center items-center w-screen h-screen ">
-      <div className="flex flex-col gap-4  md:w-[50vw]  w-full ">
-        <div className="flex flex-col items-center gap-2">
-          <img onClick={() => { }} src={logo} className=" w-[180px] mb-4 " />
-          <div className="flex items-center gap-2">
-            <MdCheck size={30} className="text-green-500" />
-            <p className="inline font-semibold text-xl ">
-              {isCrypto ? "Crypto Payment Successful" : "Payment Successful"}
-            </p>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex justify-center items-center p-4">
+      <div className="bg-white rounded-3xl shadow-2xl shadow-gray-200/50 border border-gray-100 p-8 md:p-12 max-w-md w-full text-center">
+        <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <MdCheck size={32} className="text-green-500" />
         </div>
 
-        {isCrypto && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-            <p className="text-gray-700 text-sm">
-              Your payment has been processed. Your subscription is now active
-            </p>
-          </div>
-        )}
+        <img src={logo} className="w-[160px] mx-auto mb-6" alt="TradeTimeScanner" />
+
+        <h1 className="font-bold text-gray-900 text-2xl mb-2">
+          {isCrypto ? "Crypto Payment Successful" : "Payment Successful"}
+        </h1>
+        <p className="text-gray-500 text-sm mb-8">
+          {isCrypto
+            ? "Your crypto payment has been processed. Your subscription is now active."
+            : "Welcome to premium! Your account has been upgraded."}
+        </p>
 
         <Button
-          outlined={true}
-          text="Go to dashboard"
+          text="Go to Dashboard"
           onBtnClick={() => {
             let delplan = { plan: null, date: null };
             localStorage.setItem("checkout", JSON.stringify(delplan));
             navigate("/dashboard");
           }}
+          fullWidth
         />
       </div>
     </div>

@@ -272,16 +272,6 @@ const RegisterAccount = () => {
               </div>
             )}
 
-            {/* ReCAPTCHA */}
-            <div className="pt-2 flex justify-center">
-              <ReCAPTCHA
-                sitekey={captchakey}
-                onChange={(val: any) => {
-                  setcaptcha(val);
-                }}
-              />
-            </div>
-
             {/* Terms Checkbox */}
             <div className="w-full flex justify-start items-start gap-3 py-2">
               <input
@@ -300,8 +290,18 @@ const RegisterAccount = () => {
               </label>
             </div>
 
+            {/* ReCAPTCHA */}
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                sitekey={captchakey}
+                onChange={(val: any) => {
+                  setcaptcha(val);
+                }}
+              />
+            </div>
+
             {/* Create Button */}
-            <div className="pt-4">
+            <div className="pt-2">
               <Button
                 disabled={
                   captcha == null ||

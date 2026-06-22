@@ -7,24 +7,31 @@ export default () => {
   const navigate = useNavigate();
 
   return (
-    <div className=" p-4 md:p-10 h-full flex-col px-6  overflow-x-hidden overflow-y-hidden  md:pt-1  w-full flex justify-center items-center  ">
+    <div className="min-h-[60vh] p-6 md:p-10 flex flex-col justify-center items-center">
+      <div className="max-w-md text-center space-y-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+          <span className="text-primary font-black uppercase tracking-widest text-[10px]">Coming Soon</span>
+        </div>
 
-      <h1 className="font-bold text-xl text-primary text-center">Coming soon on the mobile app</h1>
+        <h1 className="font-bold text-2xl text-gray-900">Available on Mobile App</h1>
 
+        <img className="max-w-[240px] mx-auto" src={commingsoonimg} alt="Coming soon" />
 
-      <img className="animate-pulse" src={commingsoonimg} />
-      <p className="text-blue-500 font-light text-lg text-center mb-8">This particular feature is only available on the mobile app which is launching soon! </p>
+        <p className="text-gray-500 text-sm leading-relaxed">
+          This feature is only available on the mobile app which is launching soon!
+        </p>
 
-      <Button
-        text={
-          <>
-            <MdArrowBack className="inline mr-2" />
-            Go Back
-          </>
-        }
-        onBtnClick={() => navigate(-1)}
-        width={160}
-      />
+        <Button
+          text={
+            <>
+              <MdArrowBack className="inline mr-2" />
+              Go Back
+            </>
+          }
+          onBtnClick={() => navigate(-1)}
+          fullWidth={false}
+        />
+      </div>
     </div>
   );
 };

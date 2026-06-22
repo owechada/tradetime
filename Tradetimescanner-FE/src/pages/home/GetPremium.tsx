@@ -25,7 +25,7 @@ export default () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex justify-center items-center overflow-x-hidden py-8 md:py-12 px-4">
-      <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl h-[100vh] rounded-[2.5rem] border border-white shadow-2xl shadow-blue-500/10 p-6 md:p-10 overflow-y-scroll">
+      <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl rounded-[2.5rem] border border-white shadow-2xl shadow-blue-500/10 p-6 md:p-10 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">

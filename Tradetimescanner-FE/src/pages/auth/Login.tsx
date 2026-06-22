@@ -170,27 +170,9 @@ const Login = () => {
               type="password"
               fullWidth
             />
-            {/* Divider */}
-            <div className="flex items-center">
-              <div className="flex-grow border-t border-gray-300"></div>
-              <span className="mx-4 text-gray-500 text-sm font-medium">OR</span>
-              <div className="flex-grow border-t border-gray-300"></div>
-            </div>
-            {/* Google Sign-In */}
-            <div className="flex justify-center pb-2">
-              <GoogleLogin
-                onSuccess={handleGoogleLogin}
-                onError={() => {
-                  seterror('Google Sign-In failed. Please try again.');
-                }}
-                theme="outline"
-                size="large"
-                text="continue_with"
-                width="100%"
-              />
-            </div>
+
             {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer group">
                 <input
                   type="checkbox"
@@ -208,24 +190,46 @@ const Login = () => {
               </Link>
             </div>
 
+            {/* ReCAPTCHA */}
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                sitekey={captchakey}
+                onChange={(val: any) => {
+                  setcaptcha(val);
+                }}
+              />
+            </div>
+
             {/* Login Button */}
-            <div className="pt-4">
+            <div className="pt-2">
               <Button
                 disabled={
-                  captcha == null || 
+                  captcha == null ||
                   !areFieldsFilled}
                 text="Login"
                 onBtnClick={handleSubmit(onSubmit)}
                 fullWidth
               />
             </div>
-            {/* ReCAPTCHA */}
-            <div className="pt-2 flex justify-center">
-              <ReCAPTCHA
-                sitekey={captchakey}
-                onChange={(val: any) => {
-                  setcaptcha(val);
+
+            {/* Divider */}
+            <div className="flex items-center pt-1">
+              <div className="flex-grow border-t border-gray-200"></div>
+              <span className="mx-4 text-gray-400 text-sm font-medium">or continue with</span>
+              <div className="flex-grow border-t border-gray-200"></div>
+            </div>
+
+            {/* Google Sign-In */}
+            <div className="flex justify-center">
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => {
+                  seterror('Google Sign-In failed. Please try again.');
                 }}
+                theme="outline"
+                size="large"
+                text="continue_with"
+                width="100%"
               />
             </div>
           </div>

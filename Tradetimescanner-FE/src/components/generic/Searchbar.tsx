@@ -14,13 +14,13 @@ const Searchbar: React.FC<SearchbarPropDTO> = ({
   const [focus, setfocus] = useState(false);
   return (
     <div
-      className={` text-nuetral400 px-3 py-2 bg-white flex w-[300px] max-h-[40px] items-center  border-[3px] shadow ${
-        focus ? "outline-nuetral600 outline-[3px] outline" : ""
-      }  border-primary200 border-solid rounded-[10px]  ${style}`} 
+      className={`text-gray-500 px-4 py-2.5 bg-white flex w-full max-w-[320px] items-center border-2 ${
+        focus ? "border-primary shadow-lg shadow-primary/10" : "border-gray-200 hover:border-gray-300 shadow-sm"
+      } rounded-xl transition-all duration-200 ${style}`}
     >
-      <FiSearch className="inline  " />
+      <FiSearch className={`flex-shrink-0 transition-colors duration-200 ${focus ? "text-primary" : "text-gray-400"}`} size={16} />
       <input
-        className="outline-none border-none text-sm mx-2 w-full text-nuetral400 "
+        className="outline-none border-none text-sm mx-2.5 w-full text-gray-700 placeholder-gray-400 bg-transparent"
         placeholder={placeholder ? placeholder : "Search"}
         onFocus={(_) => setfocus(true)}
         onBlur={(_) => setfocus(false)}

@@ -74,7 +74,7 @@ const FreeTrial: React.FC = () => {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 p-4  overflow-y-scroll">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 p-4 pb-12">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">

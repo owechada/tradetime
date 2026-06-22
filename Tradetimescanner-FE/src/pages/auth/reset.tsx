@@ -9,100 +9,114 @@ import { useStateSetter } from "../../hooks/statehooks/UseStateSettersHook"
 import { onResetpassword } from "../../services/auth/auth"
 import { useState } from "react"
 import { MdErrorOutline } from "react-icons/md"
+import { IoIosArrowRoundBack } from "react-icons/io"
 
 
- 
-const Reset=()=>{
+const Reset = () => {
 
-const {handleSubmit, control, watch}=useForm()
-const {isTabletOrMobile}=useStateGetter()
-   const [error, seterror] = useState("");
- 
-const watchedFields = watch(['mail']);
-const navigate=useNavigate()
- const { setLoading} = useStateSetter();
-const areFieldsFilled = watchedFields.every(field => (field !== '' && field !==undefined))
- 
-    const onSubmit= async (data:any)=>{
+  const { handleSubmit, control, watch } = useForm()
+  const { isTabletOrMobile } = useStateGetter()
+  const [error, seterror] = useState("");
 
-setLoading(true)
+  const watchedFields = watch(['mail']);
+  const navigate = useNavigate()
+  const { setLoading } = useStateSetter();
+  const areFieldsFilled = watchedFields.every(field => (field !== '' && field !== undefined))
 
-      try{
-var res=await onResetpassword({...data})
-seterror(res.message)
-      }
+  const onSubmit = async (data: any) => {
 
-      catch(e:any){
-        setLoading(false);
-          seterror(e);
-        console.log(e);
+    setLoading(true)
 
-      }
-   
-      finally{
-
-        setLoading(false)
-
-      }
-
+    try {
+      var res = await onResetpassword({ ...data })
+      seterror(res.message)
     }
 
- 
-    return(<div className="p-4 md:p-10 w-screen h-screen bg-customGray  flex flex-col md:grid md:grid-cols-2 items-center justify-center">
+    catch (e: any) {
+      setLoading(false);
+      seterror(e);
+      console.log(e);
+    }
+
+    finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="md:p-2 w-screen min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 grid md:grid-cols-2 items-center justify-center">
       {!isTabletOrMobile && (
-        <div className="px-30 py-10 flex flex-col gap-10 justify-center items-center ">
-          <img className="w-[173px] mb-4 " src={logo} />
-          <img className="w-[330px]  " src={reg_doodle} />
+        <div className="p-10 flex flex-col gap-12 justify-center items-center">
+          <img className="w-[240px]" src={logo} alt="TradeTime Scanner Logo" />
+          <img className="w-[380px]" src={reg_doodle} alt="Illustration" />
         </div>
       )}
-        <div className="bg-white  w-[100%] md:w-[458px] p-6  md:min-h-[80vh]  md:mx-20 md:py-2 md:px-20 shadow flex flex-col  justify-center  ">
-        {isTabletOrMobile && (
-          <img className="w-[173px] self-center my-12  " src={logo} />
-        )}
 
-        <TfiClose className="m-4"
-        
-        onClick={()=>{
+      <div className="flex items-center justify-center md:px-8 h-screen md:h-full overflow-scroll md:overflow-hidden">
+        <div
+          className={`bg-white ${isTabletOrMobile ? "min-h-screen w-full" : "md:max-w-[480px] w-full rounded-3xl"
+            } px-8 md:px-12 py-10 md:py-12 shadow-2xl shadow-gray-200/50 border border-gray-100 flex flex-col justify-center`}
+        >
+          {isTabletOrMobile && (
+            <div className="w-full flex flex-col justify-center items-center mb-8">
+              <img className="w-[180px] mb-6" src={logo} alt="TradeTime Scanner Logo" />
+            </div>
+          )}
 
-          navigate(-1)
-        }}
-        size={30}/>
+          <button
+            onClick={() => navigate(-1)}
+            className="mb-6 p-2 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors self-start"
+          >
+            <IoIosArrowRoundBack size={28} className="text-gray-600" />
+          </button>
 
+          <div className="mb-8">
+            <h1 className="font-bold text-gray-900 text-[26px] md:text-[28px] leading-tight mb-2">
+              Reset Password
+            </h1>
+            <p className="text-gray-500 text-sm">
+              Enter your registered email address and we'll send you a link to reset your password.
+            </p>
+          </div>
 
-            <p className="font-bold text-textbg text-[24px] ">Reset Password</p>
-            <small className="font-light text-textbg text-xs ">Kindly provide your TradetimeScanner's registered email address</small>
-         <div className=" my-4">
- 
-<InputField
-                  name="mail"
-                  title="Email"
-                  placeholder="Enter Email Address"
-                  control={control}
-                  rules={{
-                    required: "Email Address is required",
-                    pattern: {
-                      value: emailReg,
-                      message: "Invalid Email Address",
-                    },
-                  }}
-                />
-        
-          {/* <div className="w-full">
-<Link className="text-primary" to='/'>
-          Create an account </Link>
-          </div> */}
-              {error && (
-                        <p className={`${error.includes("sent")? "text-green-500 ":"text-red-500 "} text-medium text-xs  mt-4 w-full text-center`}>
-                          <MdErrorOutline className="inline " size={20} />
-                          {error}
-                        </p>
-                      )}
-           
-          <Button disabled={!areFieldsFilled} text="Reset" onBtnClick={handleSubmit(onSubmit)} />
+          {error && (
+            <div className={`mb-6 p-4 ${error.includes("sent") ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"} border rounded-xl flex items-start gap-3`}>
+              <MdErrorOutline className={`${error.includes("sent") ? "text-green-500" : "text-red-500"} flex-shrink-0 mt-0.5`} size={20} />
+              <p className={`${error.includes("sent") ? "text-green-700" : "text-red-700"} text-sm font-medium`}>{error}</p>
+            </div>
+          )}
+
+          <div className="space-y-5">
+            <InputField
+              name="mail"
+              title="Email Address"
+              placeholder="Enter your email address"
+              control={control}
+              fullWidth
+              rules={{
+                required: "Email Address is required",
+                pattern: {
+                  value: emailReg,
+                  message: "Invalid Email Address",
+                },
+              }}
+            />
+
+            <div className="pt-2">
+              <Button disabled={!areFieldsFilled} text="Send Reset Link" onBtnClick={handleSubmit(onSubmit)} fullWidth />
+            </div>
+
+            <p className="text-center text-sm text-gray-500">
+              Remember your password?{" "}
+              <Link className="text-primary font-semibold hover:text-blue-700 transition-colors" to="/login">
+                Back to Login
+              </Link>
+            </p>
+          </div>
         </div>
-      
-        </div>
-          </div>)
+      </div>
+    </div>
+  )
 }
 
-export{Reset}
+export { Reset }

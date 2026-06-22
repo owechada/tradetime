@@ -15,6 +15,8 @@ import PackageSelectionmodal from "../../components/generic/PackageSelectionmoda
 import { FaCheck } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { RiLoader2Fill } from "react-icons/ri";
+import { IoIosArrowRoundBack } from "react-icons/io";
+
 const ResetPass = () => {
   const { handleSubmit, control, watch } = useForm();
   const { isTabletOrMobile } = useStateGetter();
@@ -84,108 +86,130 @@ const ResetPass = () => {
     setLoading(false);
   };
 
+  if (!user.id) {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+        <RiLoader2Fill size={40} className="text-primary animate-spin" />
+      </div>
+    );
+  }
+
   return (
-    <>
-      {!user.id ? (
-        <RiLoader2Fill size={40} className="inline animate-spin" />
-      ) : (
-        <div className="p-4 md:p-10 w-screen h-screen bg-customGray  flex flex-col md:grid md:grid-cols-2 items-center justify-center">
-          {!isTabletOrMobile && (
-            <div className="px-30 py-10 flex flex-col gap-10 justify-center items-center ">
-              <img className="w-[173px] mb-4 " src={logo} />
-              <img className="w-[330px]  " src={reg_doodle} />
+    <div className="md:p-2 w-screen min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 grid md:grid-cols-2 items-center justify-center">
+      {!isTabletOrMobile && (
+        <div className="p-10 flex flex-col gap-12 justify-center items-center">
+          <img className="w-[240px]" src={logo} alt="TradeTime Scanner Logo" />
+          <img className="w-[380px]" src={reg_doodle} alt="Illustration" />
+        </div>
+      )}
+
+      <div className="flex items-center justify-center md:px-8 h-screen md:h-full overflow-scroll md:overflow-hidden">
+        <div
+          className={`bg-white ${isTabletOrMobile ? "min-h-screen w-full" : "md:max-w-[480px] w-full rounded-3xl"
+            } px-8 md:px-12 py-10 md:py-12 shadow-2xl shadow-gray-200/50 border border-gray-100 flex flex-col justify-center`}
+        >
+          {isTabletOrMobile && (
+            <div className="w-full flex flex-col justify-center items-center mb-8">
+              <img className="w-[180px] mb-6" src={logo} alt="TradeTime Scanner Logo" />
             </div>
           )}
-          <div className="bg-white  w-[100%] md:w-[458px] p-6  md:min-h-[80vh]  md:mx-20 md:py-2 md:px-20 shadow flex flex-col  justify-center  ">
-            {isTabletOrMobile && (
-              <img className="w-[173px] self-center my-12  " src={logo} />
-            )}
 
-            <TfiClose
-              className="m-4"
-              onClick={() => {
-                navigate(-1);
+          <button
+            onClick={() => navigate(-1)}
+            className="mb-6 p-2 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors self-start"
+          >
+            <IoIosArrowRoundBack size={28} className="text-gray-600" />
+          </button>
+
+          <div className="mb-8">
+            <h1 className="font-bold text-gray-900 text-[26px] md:text-[28px] leading-tight mb-2">
+              Create New Password
+            </h1>
+            <p className="text-gray-500 text-sm">
+              Enter and confirm your new password below, {user.username}
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <InputField
+              name="password"
+              title="New Password"
+              placeholder="Enter your new password"
+              control={control}
+              fullWidth
+              rules={{
+                required: "Password is required",
               }}
-              size={30}
+              type={"password"}
             />
 
-            <p className="font-bold text-textbg text-[24px] ">
-              Create New Password
-            </p>
-            <small className="font-light text-textbg text-xs ">
-              Enter and confirm your new password below {user.username}
-            </small>
-            <div className=" my-4">
-              <InputField
-                name="password"
-                title="New Password"
-                placeholder="Enter Your New Password"
-                control={control}
-                rules={{
-                  required: "Password is required",
-                }}
-                type={"password"}
-              />
+            <InputField
+              name="conpassword"
+              title="Confirm New Password"
+              placeholder="Confirm your new password"
+              control={control}
+              fullWidth
+              rules={{
+                required: "Password is required",
+              }}
+              type={"password"}
+            />
 
-              <InputField
-                name="conpassword"
-                title="Confirm New Password"
-                placeholder="Confirm Your New Password"
-                control={control}
-                rules={{
-                  required: "Password is required",
-                }}
-                type={"password"}
-              />
-
-              {pass && (
-                <div className=" p-3 m-2">
-                  <p className="text-xs m-1">
-                    {!(pass ? pass?.length < 6 : true) ? (
-                      <FaCheck className="inline text-green-400" />
-                    ) : (
-                      <IoMdClose className=" text-red-500 inline" />
-                    )}{" "}
+            {pass && (
+              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+                <p className="text-xs font-medium text-gray-500 mb-2">Password requirements:</p>
+                <div className="flex items-center gap-2 text-xs">
+                  {!(pass ? pass?.length < 6 : true) ? (
+                    <FaCheck className="text-green-500 flex-shrink-0" size={12} />
+                  ) : (
+                    <IoMdClose className="text-red-500 flex-shrink-0" size={12} />
+                  )}
+                  <span className={`${!(pass ? pass?.length < 6 : true) ? "text-green-700" : "text-gray-600"}`}>
                     6 characters minimum
-                  </p>
-
-                  <p className="text-xs m-1">
-                    {!/\d/.test(pass) ? (
-                      <IoMdClose className=" text-red-500 inline" />
-                    ) : (
-                      <FaCheck className="inline text-green-400" />
-                    )}{" "}
-                    Contains a number
-                  </p>
-
-                  <p className="text-xs m-1">
-                    {!/[!@#$%^&*(),.?":{}|<>]/.test(pass) ? (
-                      <IoMdClose className=" text-red-500 inline" />
-                    ) : (
-                      <FaCheck className="inline text-green-400" />
-                    )}{" "}
-                    Atleast one special character
-                  </p>
+                  </span>
                 </div>
-              )}
-              {!(confpass == pass) && (
-                <p className="text-xs text-center text-red-500">
-                  {" "}
-                  <IoMdClose className=" text-red-500 inline" /> Passwords don't
-                  match
-                </p>
-              )}
+                <div className="flex items-center gap-2 text-xs">
+                  {/\d/.test(pass) ? (
+                    <FaCheck className="text-green-500 flex-shrink-0" size={12} />
+                  ) : (
+                    <IoMdClose className="text-red-500 flex-shrink-0" size={12} />
+                  )}
+                  <span className={`${/\d/.test(pass) ? "text-green-700" : "text-gray-600"}`}>
+                    Contains a number
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  {/[!@#$%^&*(),.?":{}|<>]/.test(pass) ? (
+                    <FaCheck className="text-green-500 flex-shrink-0" size={12} />
+                  ) : (
+                    <IoMdClose className="text-red-500 flex-shrink-0" size={12} />
+                  )}
+                  <span className={`${/[!@#$%^&*(),.?":{}|<>]/.test(pass) ? "text-green-700" : "text-gray-600"}`}>
+                    At least one special character
+                  </span>
+                </div>
+              </div>
+            )}
 
+            {pass && confpass && !(confpass == pass) && (
+              <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-xl">
+                <IoMdClose className="text-red-500 flex-shrink-0" size={14} />
+                <p className="text-xs text-red-700 font-medium">Passwords don't match</p>
+              </div>
+            )}
+
+            <div className="pt-2">
               <Button
                 disabled={!areFieldsFilled}
-                text="Reset"
+                text="Reset Password"
                 onBtnClick={handleSubmit(onSubmit)}
+                fullWidth
               />
             </div>
           </div>
         </div>
-      )}{" "}
-    </>
+      </div>
+    </div>
   );
 };
 
