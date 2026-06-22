@@ -35,7 +35,7 @@ const Sidebar = ({
       return `${baseClasses} ${isCollapsed ? 'w-16' : 'w-64'}`;
     } else {
       // Desktop: Full width
-      return `${baseClasses} w-64`;
+      return `${baseClasses} w-[260px]`;
     }
   };
 
@@ -115,7 +115,7 @@ const Sidebar = ({
                 }
               }}
             >
-              <div className="flex items-center space-x-3">
+              <div className={`flex items-center ${isTablet && isCollapsed ? 'justify-center' : 'space-x-3'}`}>
                 <div
                   className={`p-2 rounded-lg transition-all duration-200 ${
                     isActive
@@ -125,13 +125,15 @@ const Sidebar = ({
                 >
                   {item.icon}
                 </div>
-                <span
-                  className={`font-medium ${
-                    isActive ? "text-primary" : "text-gray-700"
-                  }`}
-                >
-                  {item.name}
-                </span>
+                {(!isTablet || !isCollapsed) && (
+                  <span
+                    className={`font-medium ${
+                      isActive ? "text-primary" : "text-gray-700"
+                    }`}
+                  >
+                    {item.name}
+                  </span>
+                )}
               </div>
 
               {isActive && (
@@ -142,20 +144,21 @@ const Sidebar = ({
         })}
       </nav>
 
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <div className="text-xs text-gray-500 font-medium mb-3">
-              Quick Stats
-            </div>
-            <div className="space-y-2">
-              
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg border border-blue-200">
-                <div className="text-xs text-blue-600 font-medium">
-                  Market Coverage
+          {(!isTablet || !isCollapsed) && (
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <div className="text-xs text-gray-500 font-medium mb-3">
+                Quick Stats
+              </div>
+              <div className="space-y-2">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg border border-blue-200">
+                  <div className="text-xs text-blue-600 font-medium">
+                    Market Coverage
+                  </div>
+                  <div className="text-lg font-bold text-blue-700">Global</div>
                 </div>
-                <div className="text-lg font-bold text-blue-700">Global</div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

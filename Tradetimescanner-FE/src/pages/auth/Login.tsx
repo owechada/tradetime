@@ -103,7 +103,7 @@ const Login = () => {
       )}
 
       {/* Right side - Login Form */}
-      <div className="flex items-center justify-center md:px-8 md:scale-75 h-screen md:h-full overflow-scroll md:overflow-hidden">
+      <div className="flex items-center justify-center md:px-8 h-screen md:h-full overflow-scroll md:overflow-hidden">
         <div
           className={`bg-white ${isTabletOrMobile ? "min-h-screen w-full" : "md:max-w-[500px] w-full rounded-2xl"
             } px-8 md:px-12 py-10 md:py-12 shadow-xl flex flex-col justify-center`}

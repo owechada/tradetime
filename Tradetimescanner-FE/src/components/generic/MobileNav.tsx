@@ -74,7 +74,7 @@ const MobileNav = ({ show, isVisible }: MobileNavProps): JSX.Element => {
 
   // Dynamic positioning based on screen size and orientation
   const getPositionClasses = () => {
-    const baseClasses = "absolute z-[3000000] bg-customBlack rounded-[8px] shadow-2xl";
+    const baseClasses = "absolute z-[150] bg-customBlack rounded-xl shadow-2xl";
     
     if (isMobile) {
       if (orientation === 'portrait') {

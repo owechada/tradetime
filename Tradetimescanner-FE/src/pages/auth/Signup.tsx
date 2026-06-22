@@ -33,27 +33,28 @@ const RegisterAccount = () => {
   ]);
 
   const LoginAlertAction = ({ show }: any) => (
-    <div className="ModalContainer  flex justify-center items-center w-full  shadow ">
-      <div className=" flex flex-col justify-center items-center md:w-[40%] bg-white rounded-lg">
-        <p className=" font-medium text-textbg  my-2">
-          <FaCheck className="text-green-400 inline " /> Welcome aboard
+    <div className="fixed inset-0 z-[200] flex justify-center items-center bg-black/40 backdrop-blur-sm">
+      <div className="flex flex-col justify-center items-center w-[90vw] md:w-[420px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 gap-4">
+        <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center mb-2">
+          <FaCheck className="text-green-500" size={28} />
+        </div>
+        <h2 className="font-bold text-gray-900 text-xl text-center">
+          Welcome aboard!
+        </h2>
+        <div className="flex items-center gap-2 text-primary">
+          <FaMailBulk size={16} />
+          <p className="font-semibold text-sm">Email Verification Required</p>
+        </div>
+        <p className="text-gray-600 text-sm text-center leading-relaxed">
+          Your account needs to be verified. We've sent you a verification email.
+          Please check both your inbox and spam folders.
         </p>
-        <p className=" font-sm text-textbg  my-2">
-          <FaMailBulk className="text-green-400 inline " /> Email Verification
-          required
-        </p>
-
-        <p className="font-light text-textbg  text-xs text-center">
-          Your account needs to be verified, we have sent you an email to that
-          effect. Note: Check email inbox and spam folders for your verification
-          link
-        </p>
-        <div className=" gap-6 w-full flex justify-center ">
+        <div className="w-full pt-2">
           <Button
             outlined
-            width={200}
             disabled={false}
-            text="Ok"
+            text="Continue to Login"
+            fullWidth
             onBtnClick={() => {
               navigate("/login");
               show(false);
@@ -118,175 +119,201 @@ const RegisterAccount = () => {
   };
 
   return (
-    <div className="md:p-4 w-screen h-screen md:h-[80vh] bg-customGray  flex flex-col md:grid md:grid-cols-2 items-center justify-center">
+    <div className="md:p-2 w-screen min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 grid md:grid-cols-2 items-center justify-center">
       {showloginmodal && <LoginAlertAction show={setshowloginmodal} />}
+
+      {/* Left side - Branding */}
       {!isTabletOrMobile && (
-        <div className="px-30 py-10 flex flex-col gap-10 justify-center items-center ">
-          <img className="w-[173px] mb-4 " src={logo} />
-          <img className="w-[330px]  " src={reg_doodle} />
+        <div className="p-10 flex flex-col gap-12 justify-center items-center">
+          <img className="w-[240px]" src={logo} alt="TradeTime Scanner Logo" />
+          <img className="w-[380px]" src={reg_doodle} alt="Illustration" />
         </div>
       )}
-      <div className="bg-white  w-[100%] md:w-[458px] p-6   overflow-y-scroll h-screen pb-14 overflow-x-hidden  md:mx-20 md:py-4 md:px-20 shadow flex flex-col  ">
-        {isTabletOrMobile && (
-          <div className="w-full flex flex-col justify-center items-center mb-4 ">
-            <img className="w-[173px] self-center my-12  " src={logo} />
-            <img className="w-[130px]  " src={reg_doodle} />
-          </div>
-        )}
 
-        <p className="font-bold text-textbg text-[27px] md:text-[24px]">
-          Create Account
-        </p>
-        <small className="font-medium text-textbg text-sm md:text-xs">
-          Already have an account?{" "}
-          <Link className="text-primary" to="/">
-            Login{" "}
-          </Link>
-        </small>
-
-        <div className=" my-2">
-          <InputField
-            name="firstname"
-            title="First name"
-            placeholder="First name"
-            control={control}
-            rules={{
-              required: "First name is required",
-              pattern: {
-                value: textReg,
-                message: "Invalid name",
-              },
-            }}
-          />
-          <InputField
-            name="lastname"
-            title="Last name"
-            placeholder="Last name"
-            control={control}
-            rules={{
-              required: "Last name is required",
-              pattern: {
-                value: textReg,
-                message: "Invalid name",
-              },
-            }}
-          />
-          {/* <InputField
-            name="phone"
-            title="Phone number"
-            placeholder="Enter phone number"
-            control={control}
-            rules={{
-              required: "Phone number is required",
-              pattern: {
-                value: numReg,
-                message: "Invalid phone number",
-              },
-            }}
-          /> */}
-          <InputField
-            name="email"
-            title="Email Address"
-            placeholder="Enter Email Address"
-            control={control}
-            rules={{
-              required: "Email Address is required",
-              pattern: {
-                value: emailReg,
-                message: "Invalid Email Address",
-              },
-            }}
-          />
-          <InputField
-            name="password"
-            title="Password"
-            placeholder="Enter Your Password"
-            control={control}
-            rules={{
-              required: "Password is required",
-            }}
-            type={"password"}
-          />
-          <InputField
-            name="conpassword"
-            title="Confirm Password"
-            placeholder="Confirm Your Password"
-            control={control}
-            rules={{
-              required: "Password is required",
-            }}
-            type={"password"}
-          />
-          {pass && (
-            <div className=" p-3 m-2">
-              <p className="text-xs m-1">
-                {!(pass ? pass?.length < 6 : true) ? (
-                  <FaCheck className="inline text-green-400" />
-                ) : (
-                  <IoMdClose className=" text-red-500 inline" />
-                )}{" "}
-                6 characters minimum
-              </p>
-
-              <p className="text-xs m-1">
-                {!/\d/.test(pass) ? (
-                  <IoMdClose className=" text-red-500 inline" />
-                ) : (
-                  <FaCheck className="inline text-green-400" />
-                )}{" "}
-                Contains a number
-              </p>
-
-              <p className="text-xs m-1">
-                {!/[!@#$%^&*(),.?":{}|<>]/.test(pass) ? (
-                  <IoMdClose className=" text-red-500 inline" />
-                ) : (
-                  <FaCheck className="inline text-green-400" />
-                )}{" "}
-                Atleast one special character
-              </p>
+      {/* Right side - Signup Form */}
+      <div className="flex items-center justify-center md:px-8 h-screen md:h-full overflow-scroll md:overflow-hidden">
+        <div
+          className={`bg-white ${isTabletOrMobile ? "min-h-screen w-full" : "md:max-w-[500px] w-full rounded-2xl"
+            } px-8 md:px-12 py-10 md:py-12 shadow-xl flex flex-col justify-center`}
+        >
+          {/* Mobile Logo */}
+          {isTabletOrMobile && (
+            <div className="w-full flex flex-col justify-center items-center mb-8">
+              <img className="w-[180px] mb-6" src={logo} alt="TradeTime Scanner Logo" />
+              <img className="w-[140px]" src={reg_doodle} alt="Illustration" />
             </div>
           )}
-          {!(confpass == pass) && (
-            <p className="text-xs text-center text-red-500">
-              {" "}
-              <IoMdClose className=" text-red-500 inline" /> Passwords don't
-              match
-            </p>
-          )}
-          <ReCAPTCHA
-            sitekey={captchakey}
-            onChange={(val: any) => {
-              setcaptcha(val);
-            }}
-          />
 
-          <div className=" w-full flex justify-start items-start gap-2 my-4">
-            <input
-              type="checkbox"
-              id="terms"
-              checked={acceptedTerms}
-              onChange={(e) => setAcceptedTerms(e.target.checked)}
-              className="mt-[2px] w-4 h-4 cursor-pointer accent-primary shrink-0"
-            />
-            <label htmlFor="terms" className="text-textbg font-light text-sm md:text-sm text-left cursor-pointer">
-              I accept the{" "}
-              <Link className="text-primary font-medium hover:underline" to="/terms-conditions" target="_blank" rel="noopener noreferrer">
-                Terms of use & Privacy policy
-              </Link>{" "}
-              and agree to receive email promotions.
-            </label>
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="font-bold text-gray-800 text-[28px] md:text-[26px] leading-tight mb-3">
+              Create Account
+            </h1>
+            <p className="text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link className="text-primary font-semibold hover:text-blue-700 transition-colors" to="/">
+                Login
+              </Link>
+            </p>
           </div>
 
-          <Button
-            disabled={
-               captcha == null ||
-              !areFieldsFilled ||
-              !acceptedTerms
-            }
-            text="Create"
-            onBtnClick={handleSubmit(onSubmit)}
-          />
+          {/* Form */}
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <InputField
+                name="firstname"
+                title="First name"
+                placeholder="First name"
+                control={control}
+                fullWidth
+                rules={{
+                  required: "First name is required",
+                  pattern: {
+                    value: textReg,
+                    message: "Invalid name",
+                  },
+                }}
+              />
+              <InputField
+                name="lastname"
+                title="Last name"
+                placeholder="Last name"
+                control={control}
+                fullWidth
+                rules={{
+                  required: "Last name is required",
+                  pattern: {
+                    value: textReg,
+                    message: "Invalid name",
+                  },
+                }}
+              />
+            </div>
+
+            <InputField
+              name="email"
+              title="Email Address"
+              placeholder="Enter email address"
+              control={control}
+              fullWidth
+              rules={{
+                required: "Email Address is required",
+                pattern: {
+                  value: emailReg,
+                  message: "Invalid Email Address",
+                },
+              }}
+            />
+            <InputField
+              name="password"
+              title="Password"
+              placeholder="Enter your password"
+              control={control}
+              fullWidth
+              rules={{
+                required: "Password is required",
+              }}
+              type={"password"}
+            />
+            <InputField
+              name="conpassword"
+              title="Confirm Password"
+              placeholder="Confirm your password"
+              control={control}
+              fullWidth
+              rules={{
+                required: "Password is required",
+              }}
+              type={"password"}
+            />
+
+            {/* Password Requirements */}
+            {pass && (
+              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+                <p className="text-xs font-medium text-gray-500 mb-2">Password requirements:</p>
+                <div className="flex items-center gap-2 text-xs">
+                  {!(pass ? pass?.length < 6 : true) ? (
+                    <FaCheck className="text-green-500 flex-shrink-0" size={12} />
+                  ) : (
+                    <IoMdClose className="text-red-500 flex-shrink-0" size={12} />
+                  )}
+                  <span className={`${!(pass ? pass?.length < 6 : true) ? "text-green-700" : "text-gray-600"}`}>
+                    6 characters minimum
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  {/\d/.test(pass) ? (
+                    <FaCheck className="text-green-500 flex-shrink-0" size={12} />
+                  ) : (
+                    <IoMdClose className="text-red-500 flex-shrink-0" size={12} />
+                  )}
+                  <span className={`${/\d/.test(pass) ? "text-green-700" : "text-gray-600"}`}>
+                    Contains a number
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  {/[!@#$%^&*(),.?":{}|<>]/.test(pass) ? (
+                    <FaCheck className="text-green-500 flex-shrink-0" size={12} />
+                  ) : (
+                    <IoMdClose className="text-red-500 flex-shrink-0" size={12} />
+                  )}
+                  <span className={`${/[!@#$%^&*(),.?":{}|<>]/.test(pass) ? "text-green-700" : "text-gray-600"}`}>
+                    At least one special character
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Password Mismatch */}
+            {pass && confpass && !(confpass == pass) && (
+              <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-xl">
+                <IoMdClose className="text-red-500 flex-shrink-0" size={14} />
+                <p className="text-xs text-red-700 font-medium">Passwords don't match</p>
+              </div>
+            )}
+
+            {/* ReCAPTCHA */}
+            <div className="pt-2 flex justify-center">
+              <ReCAPTCHA
+                sitekey={captchakey}
+                onChange={(val: any) => {
+                  setcaptcha(val);
+                }}
+              />
+            </div>
+
+            {/* Terms Checkbox */}
+            <div className="w-full flex justify-start items-start gap-3 py-2">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+                className="mt-[2px] w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary focus:ring-2 cursor-pointer shrink-0"
+              />
+              <label htmlFor="terms" className="text-gray-700 text-sm text-left cursor-pointer leading-relaxed">
+                I accept the{" "}
+                <Link className="text-primary font-semibold hover:text-blue-700 transition-colors" to="/terms-conditions" target="_blank" rel="noopener noreferrer">
+                  Terms of use & Privacy policy
+                </Link>{" "}
+                and agree to receive email promotions.
+              </label>
+            </div>
+
+            {/* Create Button */}
+            <div className="pt-4">
+              <Button
+                disabled={
+                  captcha == null ||
+                  !areFieldsFilled ||
+                  !acceptedTerms
+                }
+                text="Create Account"
+                onBtnClick={handleSubmit(onSubmit)}
+                fullWidth
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

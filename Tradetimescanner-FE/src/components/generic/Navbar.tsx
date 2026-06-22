@@ -42,7 +42,7 @@ export default () => {
         id="navigation"
         role="navigation"
         aria-label="Main navigation"
-        className={`w-screen shadow-lg border-b border-gray-200 z-[100] bg-white/95 backdrop-blur-sm flex justify-between items-center ${isMobile ? 'h-14 px-4' : isTablet ? 'h-16 px-5' : 'h-[10vh] px-6'
+        className={`w-screen shadow-sm border-b border-gray-200/80 z-[100] bg-white/95 backdrop-blur-md flex justify-between items-center sticky top-0 ${isMobile ? 'h-14 px-4' : isTablet ? 'h-16 px-5' : 'h-16 px-6'
           }`}
       >
         <div className="flex items-center">
@@ -92,7 +92,7 @@ export default () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95">
 
-              <Menu.Items className={`origin-top-right absolute right-0 mt-2 rounded-lg shadow-xl p-2 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200 py-3 z-[135454545454] focus:outline-none border border-gray-100 ${isMobile ? 'w-48 -mr-2' : isTablet ? 'w-52' : 'w-56'
+              <Menu.Items className={`origin-top-right absolute right-0 mt-2 rounded-xl shadow-2xl p-2 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200 py-3 z-[200] focus:outline-none border border-gray-100 ${isMobile ? 'w-52 -mr-2' : isTablet ? 'w-56' : 'w-60'
                 }`}>
                 <Menu.Item>
                   <div className="p-4 bg-gradient-to-r from-gray-900 to-gray-800 flex rounded-lg mb-2">

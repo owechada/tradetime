@@ -74,13 +74,16 @@ const TradeTimeStatus: React.FC<TradeTimeStatusProps> = ({ onStatusChange }) => 
   if (loading) {
     return (
       <div
-        className={`bg-blue-50 rounded-lg border border-blue-200 ${
-          isMobile ? "p-3 mb-3" : "p-4 mb-4"
+        className={`bg-white/60 backdrop-blur-xl rounded-2xl border border-white/50 shadow-lg ${
+          isMobile ? "p-4 mb-4" : "p-5 mb-5"
         }`}
       >
-        <div className="flex items-center justify-center gap-2">
-          <FaClock className="text-blue-600 animate-spin" />
-          <p className={`text-blue-700 ${isMobile ? "text-sm" : "text-base"}`}>
+        <div className="flex items-center justify-center gap-3">
+          <div className="relative w-5 h-5">
+            <div className="absolute inset-0 rounded-full border-2 border-blue-200" />
+            <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-primary animate-spin" />
+          </div>
+          <p className={`text-gray-600 font-medium ${isMobile ? "text-sm" : "text-sm"}`}>
             Checking market status...
           </p>
         </div>
@@ -91,17 +94,17 @@ const TradeTimeStatus: React.FC<TradeTimeStatusProps> = ({ onStatusChange }) => 
   if (error) {
     return (
       <div
-        className={`bg-yellow-50 rounded-lg border border-yellow-200 ${
-          isMobile ? "p-3 mb-3" : "p-4 mb-4"
+        className={`bg-amber-50/80 backdrop-blur-sm rounded-2xl border border-amber-200/60 shadow-lg ${
+          isMobile ? "p-4 mb-4" : "p-5 mb-5"
         }`}
       >
         <div className="flex items-center gap-2 mb-2">
-          <FaInfoCircle className="text-yellow-600" />
-          <h4 className={`font-semibold text-yellow-800 ${isMobile ? "text-sm" : "text-base"}`}>
+          <FaInfoCircle className="text-amber-500" />
+          <h4 className={`font-bold text-amber-800 ${isMobile ? "text-sm" : "text-sm"}`}>
             Market Status Unavailable
           </h4>
         </div>
-        <p className={`text-yellow-700 ${isMobile ? "text-xs" : "text-sm"}`}>{error}</p>
+        <p className={`text-amber-700 ${isMobile ? "text-xs" : "text-sm"}`}>{error}</p>
       </div>
     );
   }
@@ -112,47 +115,59 @@ const TradeTimeStatus: React.FC<TradeTimeStatusProps> = ({ onStatusChange }) => 
 
   return (
     <div
-      className={`rounded-lg border ${
+      className={`rounded-2xl border backdrop-blur-xl shadow-lg transition-all duration-300 ${
         isDead
-          ? "bg-red-50 border-red-200"
-          : "bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200"
-      } ${isMobile ? "p-3 mb-3" : "p-4 mb-4"}`}
+          ? "bg-red-50/80 border-red-200/60"
+          : "bg-white/60 border-white/50"
+      } ${isMobile ? "p-4 mb-4" : "p-5 mb-5"}`}
     >
       {/* Header */}
-      <div className="flex items-center gap-2 mb-3">
-        <FaClock className={isDead ? "text-red-600" : "text-blue-600"} size={isMobile ? 18 : 20} />
-        <h3
-          className={`font-bold ${isDead ? "text-red-800" : "text-blue-800"} ${
-            isMobile ? "text-base" : "text-lg"
-          }`}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2.5">
+          <div className={`p-2 rounded-xl ${isDead ? "bg-red-100" : "bg-gradient-to-br from-primary/10 to-blue-500/10"}`}>
+            <FaClock className={isDead ? "text-red-500" : "text-primary"} size={isMobile ? 14 : 16} />
+          </div>
+          <h3
+            className={`font-bold ${isDead ? "text-red-800" : "text-gray-900"} ${
+              isMobile ? "text-sm" : "text-base"
+            }`}
+          >
+            Trade Time Analysis
+          </h3>
+        </div>
+        <span
+          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold ${getStatusColor(
+            marketStatus.status
+          )} ${isMobile ? "text-xs" : "text-xs"}`}
         >
-          Trade Time Analysis
-        </h3>
+          <span className={`w-1.5 h-1.5 rounded-full ${marketStatus.status === "Active" ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
+          {marketStatus.status}
+        </span>
       </div>
 
       {/* Active Sessions */}
-      <div className="mb-3">
+      <div className="mb-4">
         <p
-          className={`font-medium text-gray-700 mb-2 ${isMobile ? "text-xs" : "text-sm"}`}
+          className={`font-medium text-gray-500 mb-2 ${isMobile ? "text-xs" : "text-xs"} uppercase tracking-wider`}
         >
-          Active Trading Sessions:
+          Active Sessions
         </p>
         <div className="flex flex-wrap gap-2">
           {marketStatus.activeSessions.length > 0 ? (
             marketStatus.activeSessions.map((session, index) => (
               <span
                 key={index}
-                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-300 font-medium ${
-                  isMobile ? "text-xs" : "text-sm"
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border border-blue-200/60 font-medium ${
+                  isMobile ? "text-xs" : "text-xs"
                 }`}
               >
-                <FaChartLine size={isMobile ? 10 : 12} />
+                <FaChartLine size={isMobile ? 9 : 10} />
                 {session}
               </span>
             ))
           ) : (
             <span
-              className={`text-gray-500 italic ${isMobile ? "text-xs" : "text-sm"}`}
+              className={`text-gray-400 italic ${isMobile ? "text-xs" : "text-sm"}`}
             >
               No active sessions
             </span>
@@ -161,13 +176,12 @@ const TradeTimeStatus: React.FC<TradeTimeStatusProps> = ({ onStatusChange }) => 
       </div>
 
       {/* Liquidity and Status */}
-      <div className={`grid ${isMobile ? "grid-cols-1 gap-2" : "grid-cols-2 gap-3"} mb-3`}>
-        {/* Liquidity */}
-        <div>
+      <div className={`grid ${isMobile ? "grid-cols-1 gap-2" : "grid-cols-2 gap-3"} mb-4`}>
+        <div className="bg-gray-50/80 rounded-xl p-3 border border-gray-100">
           <p
-            className={`font-medium text-gray-700 mb-1 ${isMobile ? "text-xs" : "text-sm"}`}
+            className={`font-medium text-gray-500 mb-1.5 ${isMobile ? "text-xs" : "text-xs"} uppercase tracking-wider`}
           >
-            Liquidity Level:
+            Liquidity
           </p>
           <span
             className={`inline-block px-3 py-1 rounded-lg border font-semibold ${getLiquidityColor(
@@ -178,12 +192,11 @@ const TradeTimeStatus: React.FC<TradeTimeStatusProps> = ({ onStatusChange }) => 
           </span>
         </div>
 
-        {/* Market Status */}
-        <div>
+        <div className="bg-gray-50/80 rounded-xl p-3 border border-gray-100">
           <p
-            className={`font-medium text-gray-700 mb-1 ${isMobile ? "text-xs" : "text-sm"}`}
+            className={`font-medium text-gray-500 mb-1.5 ${isMobile ? "text-xs" : "text-xs"} uppercase tracking-wider`}
           >
-            Market Status:
+            Market Status
           </p>
           <span
             className={`inline-block px-3 py-1 rounded-lg border font-semibold ${getStatusColor(
@@ -197,19 +210,19 @@ const TradeTimeStatus: React.FC<TradeTimeStatusProps> = ({ onStatusChange }) => 
 
       {/* Explanation */}
       <div
-        className={`rounded-lg border p-3 ${
+        className={`rounded-xl border p-3 ${
           isDead
-            ? "bg-red-100 border-red-300"
-            : "bg-white border-blue-200"
+            ? "bg-red-50/80 border-red-200/60"
+            : "bg-gradient-to-r from-gray-50/80 to-blue-50/50 border-gray-200/60"
         }`}
       >
         <div className="flex items-start gap-2">
           <FaInfoCircle
-            className={`${isDead ? "text-red-600" : "text-blue-600"} mt-1 flex-shrink-0`}
-            size={isMobile ? 14 : 16}
+            className={`${isDead ? "text-red-500" : "text-primary/60"} mt-0.5 flex-shrink-0`}
+            size={isMobile ? 12 : 14}
           />
           <p
-            className={`${isDead ? "text-red-800" : "text-gray-700"} leading-relaxed ${
+            className={`${isDead ? "text-red-700" : "text-gray-600"} leading-relaxed ${
               isMobile ? "text-xs" : "text-sm"
             }`}
           >
@@ -220,13 +233,13 @@ const TradeTimeStatus: React.FC<TradeTimeStatusProps> = ({ onStatusChange }) => 
 
       {/* Dead Market Warning */}
       {isDead && (
-        <div className="mt-3 bg-red-200 border border-red-400 rounded-lg p-3">
+        <div className="mt-3 bg-red-100/80 border border-red-300/60 rounded-xl p-3">
           <p
-            className={`text-red-900 font-bold text-center ${
+            className={`text-red-800 font-bold text-center ${
               isMobile ? "text-xs" : "text-sm"
             }`}
           >
-            ⚠️ Signal generation is disabled during inactive market hours
+            Signal generation is disabled during inactive market hours
           </p>
         </div>
       )}

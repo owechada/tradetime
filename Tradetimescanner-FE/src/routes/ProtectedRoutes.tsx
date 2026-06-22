@@ -16,12 +16,12 @@ const ProtectedRoute = () => {
       <Navbar />
       <div className="flex flex-1 overflow-hidden">
         {isDesktopOrLaptop && (
-          <div className="w-[280px] z-50 flex-shrink-0">
+          <div className="w-[260px] z-50 flex-shrink-0">
             <Sidebar />
           </div>
         )}
         <div
-          className={`flex-1 overflow-y-auto !z-[5] ${isDesktopOrLaptop ? "ml-0" : "w-full"
+          className={`flex-1 overflow-y-auto ${isDesktopOrLaptop ? "ml-0" : "w-full"
             }`}
         >
           <div className="min-h-full">
