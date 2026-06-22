@@ -10,7 +10,7 @@ const SendEmail = async ({ subject, to, from, body }: EmailOptionsDTO) => {
   const mailgun = new Mailgun(formData);
   const mg = mailgun.client({
     username: "api",
-    key: process.env.MAILGUN_KEY,
+    key: process.env.MAILGUN_KEY??"",
   });
   console.log(to, "toot");
   mg.messages
