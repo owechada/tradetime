@@ -1,0 +1,56 @@
+4 Market Section Update
+=======================
+
+Use this mapping to populate the indicator dropdowns dynamically based on the selected market. Keep lists concise and beginner‑friendly while covering the most effective tools for each market.
+
+1) Forex Strategy
+   Common pairs: EURUSD, GBPUSD, USDJPY, USDCAD, AUDUSD, NZDUSD
+   Best Indicators:
+   - Moving Averages (SMA, EMA)
+   - MACD
+   - RSI
+   - Stochastic Oscillator
+   - ADX (trend strength)
+   - Bollinger Bands
+   - Fibonacci Retracement
+   - Pivot Points
+
+2) Crypto Strategy
+   Common pairs: BTCUSD, ETHUSD, XRPUSD, LTCUSD
+   Best Indicators:
+   - EMA (20/50/200 for trend)
+   - RSI
+   - MACD
+   - Bollinger Bands
+   - ATR (volatility measure)
+   - Volume-based (OBV, MFI)
+   - Fibonacci Levels
+
+3) Gold Strategy (XAUUSD)
+   Common symbol: XAUUSD
+   Best Indicators:
+   - Moving Averages (EMA 50/200)
+   - Ichimoku Kinko Hyo
+   - RSI
+   - MACD
+   - ATR
+   - Fibonacci Retracement
+   - Pivot Points (daily/weekly)
+
+4) Indices Strategy
+   Common indices: US30 (Dow), US100 (Nasdaq), US500 (S&P 500), GER30 (DAX)
+   Best Indicators:
+   - EMA (20/50/200)
+   - MACD
+   - RSI
+   - Stochastic Oscillator
+   - Bollinger Bands
+   - ADX
+   - Fibonacci Retracement
+
+Implementation Notes
+--------------------
+- Each market section must include its recommended symbols.
+- Show only the relevant indicators for the selected market.
+- Keep indicator input parameters in dropdowns (e.g., EMA → Period: 50).
+- Maintain consistent naming across all markets.

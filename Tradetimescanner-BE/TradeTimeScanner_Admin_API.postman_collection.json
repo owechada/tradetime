@@ -1,0 +1,450 @@
+{
+  "info": {
+    "_postman_id": "admin-api-collection-uuid",
+    "name": "TradeTimeScanner Admin API",
+    "description": "Complete collection of admin endpoints for TradeTimeScanner backend application. All endpoints are open access - no authentication required.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "admin-collection"
+  },
+  "item": [
+    {
+      "name": "📊 Dashboard & Analytics",
+      "item": [
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/dashboard/stats",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "dashboard", "stats"]
+            },
+            "description": "Get comprehensive dashboard statistics including user counts, premium users, trials, and content metrics. No authentication required."
+          }
+        },
+        {
+          "name": "Get System Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/system/info",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "system", "info"]
+            },
+            "description": "Get system information including uptime, memory usage, Node.js version, and platform details."
+          }
+        }
+      ],
+      "description": "Dashboard analytics and system monitoring endpoints - Open access, no authentication required"
+    },
+    {
+      "name": "👥 User Management",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users?page=1&limit=10&search=&status=all",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page (default: 10)"
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "description": "Search in username, email, or trade view name"
+                },
+                {
+                  "key": "status",
+                  "value": "all",
+                  "description": "Filter: all, active, inactive, premium, trial, admin"
+                }
+              ]
+            },
+            "description": "Get paginated list of users with search and filtering capabilities."
+          }
+        },
+        {
+          "name": "Get Users - Search Example",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users?page=1&limit=20&search=john&status=active",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "search",
+                  "value": "john"
+                },
+                {
+                  "key": "status",
+                  "value": "active"
+                }
+              ]
+            },
+            "description": "Example: Search for users with 'john' in username/email and filter by active status."
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}"]
+            },
+            "description": "Get detailed user information including activity summary (saved scans and strategies count)."
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"updated_username\",\n  \"mail\": \"updated@example.com\",\n  \"trade_view_name\": \"updated_trader\",\n  \"comment\": \"Updated by admin\",\n  \"checked\": 0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}"]
+            },
+            "description": "Update user information. Password and ID fields are protected and cannot be updated."
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}"]
+            },
+            "description": "Delete user and all associated data (saved scans and strategies). This action is irreversible."
+          }
+        },
+        {
+          "name": "Toggle User Status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/toggle-status",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "toggle-status"]
+            },
+            "description": "Toggle user between active (checked: 0) and inactive (checked: 1) status."
+          }
+        },
+        {
+          "name": "Get User Activity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/activity",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "activity"]
+            },
+            "description": "Get user's recent activity including saved scans and strategies with timestamps."
+          }
+        }
+      ],
+      "description": "Complete user management operations including CRUD operations and status management - Open access, no authentication required"
+    },
+    {
+      "name": "💎 Premium Management",
+      "item": [
+        {
+          "name": "Grant Premium Access",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expiryDate\": \"2024-12-31T23:59:59.000Z\",\n  \"subscriptionId\": \"sub_1234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/premium/grant",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "premium", "grant"]
+            },
+            "description": "Grant premium access to a user with optional expiry date and subscription ID."
+          }
+        },
+        {
+          "name": "Grant Premium - Default 30 Days",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/premium/grant",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "premium", "grant"]
+            },
+            "description": "Grant premium access with default 30-day expiry (no request body needed)."
+          }
+        },
+        {
+          "name": "Revoke Premium Access",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/premium/revoke",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "premium", "revoke"]
+            },
+            "description": "Revoke premium access from a user, clearing subscription data."
+          }
+        }
+      ],
+      "description": "Premium subscription management for users - Open access, no authentication required"
+    },
+    {
+      "name": "🎯 Trial Management",
+      "item": [
+        {
+          "name": "Grant Trial Access",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"trialDays\": 14\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/trial/grant",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "trial", "grant"]
+            },
+            "description": "Grant trial access to a user with custom duration (default: 7 days)."
+          }
+        },
+        {
+          "name": "Grant Trial - Default 7 Days",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/trial/grant",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "trial", "grant"]
+            },
+            "description": "Grant trial access with default 7-day duration."
+          }
+        },
+        {
+          "name": "Revoke Trial Access",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/trial/revoke",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "trial", "revoke"]
+            },
+            "description": "Revoke trial access from a user, clearing trial data."
+          }
+        }
+      ],
+      "description": "Trial access management for users - Open access, no authentication required"
+    },
+    {
+      "name": "🔐 Admin Management",
+      "item": [
+        {
+          "name": "Promote to Admin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/admin/promote",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "admin", "promote"]
+            },
+            "description": "Promote a user to admin privileges (is_admin: 1)."
+          }
+        },
+        {
+          "name": "Revoke Admin Privileges",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/{{user_id}}/admin/revoke",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "{{user_id}}", "admin", "revoke"]
+            },
+            "description": "Revoke admin privileges from a user. Open access - no authentication required."
+          }
+        }
+      ],
+      "description": "Admin privilege management - Open access, no authentication required"
+    },
+    {
+      "name": "🔄 Bulk Operations",
+      "item": [
+        {
+          "name": "Bulk Update Users",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userIds\": [\n    \"user-uuid-1\",\n    \"user-uuid-2\",\n    \"user-uuid-3\"\n  ],\n  \"updateData\": {\n    \"checked\": 0,\n    \"comment\": \"Bulk activated by admin\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/bulk/update",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "bulk", "update"]
+            },
+            "description": "Update multiple users at once with the same data. Useful for bulk status changes or adding comments."
+          }
+        },
+        {
+          "name": "Bulk Delete Users",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userIds\": [\n    \"user-uuid-1\",\n    \"user-uuid-2\",\n    \"user-uuid-3\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/bulk/delete",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", "bulk", "delete"]
+            },
+            "description": "Delete multiple users and all their associated data. This action is irreversible."
+          }
+        }
+      ],
+      "description": "Efficient bulk operations for managing multiple users - Open access, no authentication required"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-set base_url if not defined",
+          "if (!pm.variables.get('base_url')) {",
+          "    pm.variables.set('base_url', 'http://localhost:3000');",
+          "}",
+          "",
+          "// No authentication required - API is open access",
+          "console.log('✅ Open access API - no authentication needed');"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global test script for all requests",
+          "pm.test('Response should be JSON', function () {",
+          "    pm.response.to.be.json;",
+          "});",
+          "",
+          "pm.test('Response should have success field', function () {",
+          "    pm.expect(pm.response.json()).to.have.property('success');",
+          "});",
+          "",
+          "// Log response for debugging",
+          "if (pm.response.code >= 400) {",
+          "    console.log('❌ Error Response:', pm.response.json());",
+          "} else {",
+          "    console.log('✅ Success Response');",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "description": "Base URL for the API (change to your server URL)"
+    },
+
+    {
+      "key": "user_id",
+      "value": "",
+      "description": "User ID for testing user-specific endpoints"
+    }
+  ]
+}

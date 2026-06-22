@@ -1,0 +1,299 @@
+/* Responsive Typography and Spacing System */
+
+/* Fluid typography using clamp() for smooth scaling */
+.text-responsive-xs {
+  font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  line-height: 1.4;
+}
+
+.text-responsive-sm {
+  font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  line-height: 1.5;
+}
+
+.text-responsive-base {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  line-height: 1.6;
+}
+
+.text-responsive-lg {
+  font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  line-height: 1.5;
+}
+
+.text-responsive-xl {
+  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  line-height: 1.4;
+}
+
+.text-responsive-2xl {
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
+  line-height: 1.3;
+}
+
+.text-responsive-3xl {
+  font-size: clamp(1.875rem, 1.6rem + 1.375vw, 2.25rem);
+  line-height: 1.2;
+}
+
+.text-responsive-4xl {
+  font-size: clamp(2.25rem, 1.9rem + 1.75vw, 3rem);
+  line-height: 1.1;
+}
+
+/* Responsive headings */
+.heading-responsive-h1 {
+  font-size: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.heading-responsive-h2 {
+  font-size: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.heading-responsive-h3 {
+  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.heading-responsive-h4 {
+  font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Responsive spacing utilities */
+.space-responsive-xs {
+  margin: clamp(0.25rem, 0.2rem + 0.25vw, 0.375rem);
+}
+
+.space-responsive-sm {
+  margin: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+}
+
+.space-responsive-md {
+  margin: clamp(0.75rem, 0.6rem + 0.75vw, 1.125rem);
+}
+
+.space-responsive-lg {
+  margin: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+}
+
+.space-responsive-xl {
+  margin: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+}
+
+.space-responsive-2xl {
+  margin: clamp(2rem, 1.6rem + 2vw, 3rem);
+}
+
+.space-responsive-3xl {
+  margin: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);
+}
+
+/* Responsive padding utilities */
+.padding-responsive-xs {
+  padding: clamp(0.25rem, 0.2rem + 0.25vw, 0.375rem);
+}
+
+.padding-responsive-sm {
+  padding: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+}
+
+.padding-responsive-md {
+  padding: clamp(0.75rem, 0.6rem + 0.75vw, 1.125rem);
+}
+
+.padding-responsive-lg {
+  padding: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+}
+
+.padding-responsive-xl {
+  padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+}
+
+.padding-responsive-2xl {
+  padding: clamp(2rem, 1.6rem + 2vw, 3rem);
+}
+
+/* Responsive gap utilities for flexbox/grid */
+.gap-responsive-xs {
+  gap: clamp(0.25rem, 0.2rem + 0.25vw, 0.375rem);
+}
+
+.gap-responsive-sm {
+  gap: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+}
+
+.gap-responsive-md {
+  gap: clamp(0.75rem, 0.6rem + 0.75vw, 1.125rem);
+}
+
+.gap-responsive-lg {
+  gap: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+}
+
+.gap-responsive-xl {
+  gap: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+}
+
+/* Responsive border radius */
+.rounded-responsive-sm {
+  border-radius: clamp(0.25rem, 0.2rem + 0.25vw, 0.375rem);
+}
+
+.rounded-responsive-md {
+  border-radius: clamp(0.375rem, 0.3rem + 0.375vw, 0.5rem);
+}
+
+.rounded-responsive-lg {
+  border-radius: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+}
+
+.rounded-responsive-xl {
+  border-radius: clamp(0.75rem, 0.6rem + 0.75vw, 1rem);
+}
+
+/* Container spacing */
+.container-responsive {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+}
+
+/* Section spacing */
+.section-spacing-responsive {
+  padding-top: clamp(2rem, 4vw, 4rem);
+  padding-bottom: clamp(2rem, 4vw, 4rem);
+}
+
+.section-spacing-responsive-sm {
+  padding-top: clamp(1rem, 2vw, 2rem);
+  padding-bottom: clamp(1rem, 2vw, 2rem);
+}
+
+.section-spacing-responsive-lg {
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: clamp(3rem, 6vw, 6rem);
+}
+
+/* Card spacing */
+.card-spacing-responsive {
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.card-spacing-responsive-sm {
+  padding: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.card-spacing-responsive-lg {
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Button spacing */
+.button-spacing-responsive {
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
+}
+
+.button-spacing-responsive-sm {
+  padding: clamp(0.375rem, 0.75vw, 0.5rem) clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.button-spacing-responsive-lg {
+  padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Form spacing */
+.form-spacing-responsive {
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.form-field-spacing-responsive {
+  margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+/* Navigation spacing */
+.nav-spacing-responsive {
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.nav-item-spacing-responsive {
+  padding: clamp(0.375rem, 0.75vw, 0.5rem) clamp(0.5rem, 1vw, 0.75rem);
+}
+
+/* Responsive line heights for better readability */
+.leading-responsive-tight {
+  line-height: clamp(1.1, 1.05 + 0.25vw, 1.25);
+}
+
+.leading-responsive-normal {
+  line-height: clamp(1.4, 1.3 + 0.5vw, 1.6);
+}
+
+.leading-responsive-relaxed {
+  line-height: clamp(1.6, 1.5 + 0.5vw, 1.8);
+}
+
+/* Responsive letter spacing */
+.tracking-responsive-tight {
+  letter-spacing: clamp(-0.05em, -0.04em + -0.05vw, -0.025em);
+}
+
+.tracking-responsive-normal {
+  letter-spacing: 0;
+}
+
+.tracking-responsive-wide {
+  letter-spacing: clamp(0.025em, 0.02em + 0.025vw, 0.05em);
+}
+
+/* Mobile-specific typography adjustments */
+@media (max-width: 640px) {
+  .text-mobile-center {
+    text-align: center;
+  }
+  
+  .text-mobile-left {
+    text-align: left;
+  }
+  
+  /* Increase touch target sizes on mobile */
+  .touch-target-mobile {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Tablet-specific typography adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .text-tablet-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Desktop-specific typography adjustments */
+@media (min-width: 1025px) {
+  .text-desktop-balance {
+    text-wrap: balance;
+  }
+  
+  .text-desktop-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* High DPI display adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .text-high-dpi {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

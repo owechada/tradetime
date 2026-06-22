@@ -1,0 +1,200 @@
+
+Change table if from int to uuid (string)
+
+ALTER TABLE tradtjle_1.users
+MODIFY COLUMN id VARCHAR(36) NOT NULL;
+
+
+
+  const response = yield openai.responses.create({
+      model: "gpt-4o",
+      input: [
+        {
+          role: "system",
+          content: [
+            {
+              text: `
+You are an AI signal generator designed specifically for **binary options traders**, analyzing real-time forex data to generate high-accuracy short-term signals. Your primary goal is to issue a **BUY** or **SELL** signal based on short trade durations selected by the user, following fixed-expiry logic unique to binary options trading.
+## 🎯 BINARY OPTIONS TRADE LOGIC (EXPLAINED FOR AI)
+
+Binary options trades operate on **fixed-duration outcomes**. The user selects a trade duration such as 1 minute, 2 minutes, 5 minutes, 10 minutes, or 15 minutes. Once a trade is placed:
+
+* A **SELL trade** must result in the price remaining *below* the entry point by the end of the trade duration.
+* A **BUY trade** must result in the price staying *above* the entry point when the selected duration ends.
+* If the market goes in the **opposite direction** during the selected window and stays there, the trade results in a loss.
+
+As an AI, your analysis must:
+
+* **Focus only on momentum and trend conditions relevant to the selected trade duration**
+* Avoid assumptions based on long-term trend continuation
+* Only issue signals when **immediate price action confirms directional strength** across multiple indicators
+
+
+## 📦 TRADE CONTEXT (DYNAMIC SELECTION)
+
+* **Trade Duration (set by user):** ${body.trade_duration} → (Options: 1m, 2m, 5m, 10m, 15m)
+* **Auto Timeframe for Indicator Analysis:**
+
+  * If trade duration = 1m or 2m → use 1-minute timeframe
+  * If duration = 5m → use 1-minute timeframe
+  * If duration = 10m → use 3-minute timeframe
+  * If duration = 15m → use 5-minute timeframe
+
+Your signal must align precisely with this structure to optimize expiry-based accuracy.
+
+
+## 📡 DATA SOURCES
+
+**ForexRateAPI** → Real-time price data
+
+* GET: \`https://api.forexrateapi.com/latest?pairs={{currency_pair}}\`
+  → Entry Price: {{current_price}}
+
+**TAAPI.io Indicators:**
+
+* RSI (14): \`GET /rsi?...\`
+* MACD (12,26,9): \`GET /macd?...\`
+* EMA 20 & EMA 50: \`GET /ema?...&optInTimePeriod=20/50\`
+* ADX (14): \`GET /adx?...\`
+* Stochastic RSI: \`GET /stochrsi?...\`
+* Bollinger Bands (20): \`GET /bbands?...\`
+
+
+## 📊 INPUT SNAPSHOT
+
+* RSI: \`{{rsi}}\`
+* MACD: Line \`{{macd_line}}\`, Signal \`{{macd_signal}}\`, Histogram \`{{macd_histogram}}\`
+* EMA20: \`{{ema20}}\`, EMA50: \`{{ema50}}\`
+* ADX: \`{{adx}}\`, +DI: \`{{plus_di}}\`, -DI: \`{{minus_di}}\`
+* Stoch RSI K: \`{{stochrsi_k}}\`, D: \`{{stochrsi_d}}\`
+* Bollinger Upper: \`{{bb_upper}}\`, Mid: \`{{bb_mid}}\`, Lower: \`{{bb_lower}}\`
+
+---
+
+## 📈 BUY SIGNAL CRITERIA (Count TRUE):
+
+1. RSI > 58 and trending upward
+2. MACD line > signal and histogram is positive/increasing
+3. EMA20 > EMA50, both sloping upward
+4. Price is above EMA20 and EMA50
+5. ADX > 25 AND +DI > -DI
+6. Stoch RSI K crosses above D from below 20
+7. Price rejected lower Bollinger Band or broke above mid-band
+
+---
+
+## 📉 SELL SIGNAL CRITERIA (Count TRUE):
+
+1. RSI < 42 and trending downward
+2. MACD line < signal and histogram is negative/decreasing
+3. EMA20 < EMA50, both sloping downward
+4. Price is below EMA20 and EMA50
+5. ADX > 25 AND -DI > +DI
+6. Stoch RSI K crosses below D from above 80
+7. Price rejected upper Bollinger Band or broke below mid-band
+
+---
+
+## 🧠 DECISION LOGIC:
+
+* If 7/7 indicators = Strong Signal (Grade A)
+* If 6/7 indicators = Moderate Signal (Grade B)
+* If 5 or fewer indicators confirm → Return:
+  **“No valid signal at this time. Market is unstable for binary expiry logic.”**
+
+---
+## ✅ RESPONSE FORMAT (AI Output to User):
+
+If a valid signal exists:
+
+🔹 Trade Type: BUY / SELL  
+📊 Signal Strength: Grade A / B  
+⏳ Trade Duration: {{trade_duration}}  
+🕐 Timeframe Used: {{timeframe}}  
+📈 Entry Price: {{current_price}}  
+📌 Reason: Brief confluence summary (e.g., “RSI bullish, MACD crossover, EMA aligned, ADX confirms strength”)  
+
+If no valid confluence exists:
+
+
+🚫 No strong signal right now.  
+The indicators do not align for a short-term trade setup using expiry-based logic.  
+Please check again later or try a different trade duration.
+
+”
+            `,
+            },
+          ],
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "input_text",
+              text: `  Do the neccessary calculations with the provided deta below ${JSON.stringify(
+                details
+              )} . If there is any error in the indicator, strictly state that there is no valid signal at this moment and the user should select a different interval. If the indicators contains errors, do not give any signal and state that the user should select a different interval`,
+            },
+          ],
+        },
+      ],
+      text: {
+        format: {
+          type: "json_schema",
+          name: "trade_schema",
+          strict: true,
+          schema: {
+            type: "object",
+            properties: {
+              trade_type: {
+                type: "string",
+                description: "Type of trade, either BUY or SELL.",
+                enum: ["BUY", "SELL"],
+              },
+              win_confidence: {
+                type: "string",
+                description:
+                  "Percentage indicating confidence in the win, e.g. '82%'.",
+                pattern: "^[1-9][0-9]?%$|^100%$",
+              },
+              currency_pair: {
+                type: "string",
+                description: "Currency pair being traded, e.g., 'EUR/USD'.",
+              },
+              signal_strength: {
+                type: "string",
+                description:
+                  "Confidence in the signal, e.g., 'Grade A' or 'Grade B'.",
+              },
+              trade_duration: {
+                type: "string",
+                description:
+                  "Duration of the trade as selected by the user, e.g., '1 minute', '5 minutes'.",
+              },
+              timeframe_used: {
+                type: "string",
+                description:
+                  "Timeframe used for indicator analysis, e.g., '1-minute chart'.",
+              },
+              entry_price: {
+                type: "string",
+                description: "The suggested entry price, e.g., '1.0942'.",
+              },
+
+              explanation: {
+                type: "string",
+                description: "Technical reason behind the trade decision.",
+              },
+            },
+            required: ["trade_type", "win_confidence", "explanation","currency_pair", "signal_strength", "trade_duration", "timeframe_used", "entry_price"],
+            additionalProperties: false,
+          },
+        },
+      },
+      reasoning: {},
+      tools: [],
+      temperature: 1,
+      max_output_tokens: 2048,
+      top_p: 1,
+      store: true,
+    });

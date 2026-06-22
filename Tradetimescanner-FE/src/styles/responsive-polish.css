@@ -1,0 +1,225 @@
+/* Main Responsive Polish CSS - Import all polish styles */
+
+@import './responsive-animations.css';
+@import './responsive-typography.css';
+@import './responsive-micro-interactions.css';
+
+/* Global responsive polish container */
+.responsive-polish-wrapper {
+  /* CSS Custom Properties for dynamic values */
+  --animation-duration: 200ms;
+  --micro-interaction-duration: 150ms;
+  --touch-feedback-scale: 0.98;
+  --focus-ring-color: rgba(59, 130, 246, 0.5);
+  --hover-lift-distance: -2px;
+  --border-radius-responsive: clamp(0.25rem, 0.5vw, 0.5rem);
+  --shadow-responsive: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Device-specific adjustments */
+.responsive-polish-wrapper.mobile-device {
+  --hover-lift-distance: 0px;
+  --touch-feedback-scale: 0.95;
+}
+
+.responsive-polish-wrapper.tablet-device {
+  --animation-duration: 250ms;
+}
+
+.responsive-polish-wrapper.desktop-device {
+  --animation-duration: 200ms;
+  --hover-lift-distance: -3px;
+}
+
+/* Accessibility adjustments */
+.responsive-polish-wrapper.reduced-motion {
+  --animation-duration: 0ms;
+  --micro-interaction-duration: 0ms;
+}
+
+.responsive-polish-wrapper.high-contrast {
+  --focus-ring-color: #000000;
+  --border-radius-responsive: 2px;
+}
+
+.responsive-polish-wrapper.touch-device {
+  /* Ensure minimum touch target sizes */
+  --min-touch-target: 44px;
+}
+
+/* Enhanced focus management */
+.responsive-polish-wrapper *:focus {
+  outline: none;
+}
+
+.responsive-polish-wrapper .focus-ring-responsive:focus {
+  box-shadow: 0 0 0 3px var(--focus-ring-color);
+  transition: box-shadow var(--micro-interaction-duration) ease-in-out;
+}
+
+/* Enhanced hover states */
+.responsive-polish-wrapper .hover-lift:hover {
+  transform: translateY(var(--hover-lift-distance));
+  box-shadow: var(--shadow-responsive);
+  transition: all var(--animation-duration) ease-in-out;
+}
+
+/* Touch device specific styles */
+.responsive-polish-wrapper.touch-device .hover-lift:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.responsive-polish-wrapper.touch-device .hover-lift:active {
+  transform: scale(var(--touch-feedback-scale));
+  transition: transform var(--micro-interaction-duration) ease-in-out;
+}
+
+/* Responsive grid enhancements */
+.responsive-polish-wrapper .grid-responsive {
+  display: grid;
+  gap: var(--gap-responsive, clamp(1rem, 2vw, 2rem));
+  grid-template-columns: repeat(auto-fit, minmax(var(--min-column-width, 250px), 1fr));
+}
+
+/* Enhanced card styles */
+.responsive-polish-wrapper .card-enhanced {
+  background: white;
+  border-radius: var(--border-radius-responsive);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all var(--animation-duration) ease-in-out;
+}
+
+.responsive-polish-wrapper .card-enhanced:hover {
+  transform: translateY(var(--hover-lift-distance));
+  box-shadow: var(--shadow-responsive);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Enhanced button styles */
+.responsive-polish-wrapper .button-enhanced {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-responsive);
+  transition: all var(--animation-duration) ease-in-out;
+  min-height: var(--min-touch-target, auto);
+  min-width: var(--min-touch-target, auto);
+}
+
+.responsive-polish-wrapper .button-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease-out, height 0.4s ease-out;
+}
+
+.responsive-polish-wrapper .button-enhanced:active::before {
+  width: 200px;
+  height: 200px;
+}
+
+/* Enhanced input styles */
+.responsive-polish-wrapper .input-enhanced {
+  border-radius: var(--border-radius-responsive);
+  transition: all var(--animation-duration) ease-in-out;
+  min-height: var(--min-touch-target, auto);
+}
+
+.responsive-polish-wrapper .input-enhanced:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px var(--focus-ring-color);
+}
+
+/* Loading states */
+.responsive-polish-wrapper .loading-enhanced {
+  position: relative;
+  overflow: hidden;
+}
+
+.responsive-polish-wrapper .loading-enhanced::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent);
+  animation: loading-shimmer 1.5s infinite;
+}
+
+/* Notification enhancements */
+.responsive-polish-wrapper .notification-enhanced {
+  border-radius: var(--border-radius-responsive);
+  box-shadow: var(--shadow-responsive);
+  transition: all var(--animation-duration) ease-in-out;
+}
+
+/* Responsive spacing utilities */
+.responsive-polish-wrapper .space-responsive-auto {
+  margin: clamp(0.5rem, 2vw, 2rem);
+}
+
+.responsive-polish-wrapper .padding-responsive-auto {
+  padding: clamp(0.5rem, 2vw, 2rem);
+}
+
+.responsive-polish-wrapper .gap-responsive-auto {
+  gap: clamp(0.5rem, 2vw, 2rem);
+}
+
+/* Print styles */
+@media print {
+  .responsive-polish-wrapper * {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .responsive-polish-wrapper {
+    --focus-ring-color: #000000;
+    --border-radius-responsive: 2px;
+  }
+
+  .responsive-polish-wrapper .card-enhanced {
+    border-color: #000000;
+  }
+
+  .responsive-polish-wrapper .button-enhanced {
+    border: 2px solid #000000;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .responsive-polish-wrapper {
+    --animation-duration: 0ms;
+    --micro-interaction-duration: 0ms;
+  }
+
+  .responsive-polish-wrapper *,
+  .responsive-polish-wrapper *::before,
+  .responsive-polish-wrapper *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .responsive-polish-wrapper .hover-lift:hover,
+  .responsive-polish-wrapper .card-enhanced:hover {
+    transform: none !important;
+  }
+}

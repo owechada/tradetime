@@ -1,0 +1,298 @@
+/* Responsive Animations and Transitions */
+
+/* Base transition utilities */
+.transition-responsive {
+  transition: all 0.2s ease-in-out;
+}
+
+.transition-responsive-slow {
+  transition: all 0.3s ease-in-out;
+}
+
+.transition-responsive-fast {
+  transition: all 0.15s ease-in-out;
+}
+
+/* Smooth layout transitions */
+.layout-transition {
+  transition: width 0.3s ease-in-out, 
+              height 0.3s ease-in-out, 
+              padding 0.2s ease-in-out,
+              margin 0.2s ease-in-out;
+}
+
+/* Responsive hover effects */
+.hover-lift {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile-specific hover effects (touch devices) */
+@media (hover: none) and (pointer: coarse) {
+  .hover-lift:hover {
+    transform: none;
+  }
+  
+  .hover-lift:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-in-out;
+  }
+}
+
+/* Responsive focus animations */
+.focus-ring-responsive {
+  transition: box-shadow 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.focus-ring-responsive:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  border-color: #3b82f6;
+}
+
+/* Mobile touch feedback */
+.touch-feedback {
+  transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.touch-feedback:active {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(0.98);
+}
+
+/* Responsive modal animations */
+.modal-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.modal-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+}
+
+/* Mobile modal animations */
+@media (max-width: 768px) {
+  .modal-enter {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  
+  .modal-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+  
+  .modal-exit-active {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.25s ease-in, transform 0.25s ease-in;
+  }
+}
+
+/* Sidebar animations */
+.sidebar-slide-enter {
+  transform: translateX(-100%);
+}
+
+.sidebar-slide-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.sidebar-slide-exit {
+  transform: translateX(0);
+}
+
+.sidebar-slide-exit-active {
+  transform: translateX(-100%);
+  transition: transform 0.25s ease-in;
+}
+
+/* Navigation animations */
+.nav-item-hover {
+  position: relative;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-item-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.2s ease-in-out;
+}
+
+.nav-item-hover:hover::after {
+  width: 100%;
+}
+
+/* Mobile navigation animations */
+@media (max-width: 768px) {
+  .nav-item-hover::after {
+    display: none;
+  }
+}
+
+/* Button animations */
+.button-responsive {
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-responsive::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease-out, height 0.3s ease-out;
+}
+
+.button-responsive:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Form field animations */
+.input-responsive {
+  transition: border-color 0.2s ease-in-out, 
+              box-shadow 0.2s ease-in-out,
+              background-color 0.2s ease-in-out;
+}
+
+.input-responsive:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Card animations */
+.card-responsive {
+  transition: transform 0.2s ease-in-out, 
+              box-shadow 0.2s ease-in-out,
+              border-color 0.2s ease-in-out;
+}
+
+.card-responsive:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile card animations */
+@media (max-width: 768px) {
+  .card-responsive:hover {
+    transform: none;
+  }
+  
+  .card-responsive:active {
+    transform: scale(0.99);
+    transition: transform 0.1s ease-in-out;
+  }
+}
+
+/* Loading animations */
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fade animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive micro-interactions */
+.micro-bounce {
+  transition: transform 0.1s ease-in-out;
+}
+
+.micro-bounce:active {
+  transform: scale(0.95);
+}
+
+/* Smooth scrolling */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

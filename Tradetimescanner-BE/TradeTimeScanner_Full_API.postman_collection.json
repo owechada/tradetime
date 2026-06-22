@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "4b5b5b5b-5b5b-4b5b-8b5b-5b5b5b5b5b5b",
+		"name": "TradeTimeScanner Full API",
+		"description": "Comprehensive collection for TradeTimeScanner Backend API including Auth, Strategy Generation, Analysis, and Admin tools.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"name\": \"John Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Generation",
+			"item": [
+				{
+					"name": "Get Currency Pairs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"marketType\": \"Forex\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/gen/getcurrencypair",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"gen",
+								"getcurrencypair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Strategy (Forex)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pair\": \"EURUSD\",\n    \"timeframe\": \"1H\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/gen/genstrategy/forex",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"gen",
+								"genstrategy",
+								"forex"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Strategy (Options)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"indicator\": \"RSI\",\n    \"timeframe\": \"5m\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/gen/genstrategy/options",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"gen",
+								"genstrategy",
+								"options"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pro Chart Analysis",
+			"item": [
+				{
+					"name": "Analyze Chart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "chart",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "userId",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "analysisType",
+									"value": "Standard",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/pro-chart/analyze",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"pro-chart",
+								"analyze"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Analysis History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/pro-chart/history/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"pro-chart",
+								"history",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/dashboard/stats",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"dashboard",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

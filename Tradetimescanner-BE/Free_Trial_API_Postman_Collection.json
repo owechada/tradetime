@@ -1,0 +1,120 @@
+{
+  "info": {
+    "_postman_id": "free-trial-api-collection",
+    "name": "Free Trial API Collection",
+    "description": "Postman collection for managing user free trial access in the TradeTimeScanner admin system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Check Free Trial Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/admin/users/{{user_id}}/free-trial/status",
+          "host": ["{{base_url}}"],
+          "path": ["admin", "users", "{{user_id}}", "free-trial", "status"]
+        },
+        "description": "Check whether a user has taken their free trial or not. Returns the current free trial eligibility status."
+      },
+      "response": []
+    },
+    {
+      "name": "Toggle Free Trial Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/admin/users/{{user_id}}/free-trial/toggle",
+          "host": ["{{base_url}}"],
+          "path": ["admin", "users", "{{user_id}}", "free-trial", "toggle"]
+        },
+        "description": "Toggle whether a user can take a free trial or not. This endpoint switches the user's free trial eligibility status."
+      },
+      "response": []
+    },
+    {
+      "name": "Grant Trial (Existing)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"trialDays\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/admin/users/{{user_id}}/trial/grant",
+          "host": ["{{base_url}}"],
+          "path": ["admin", "users", "{{user_id}}", "trial", "grant"]
+        },
+        "description": "Grant a 3-day trial to a user. This will automatically set their free trial status to 'used'."
+      },
+      "response": []
+    },
+    {
+      "name": "Revoke Trial (Existing)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/admin/users/{{user_id}}/trial/revoke",
+          "host": ["{{base_url}}"],
+          "path": ["admin", "users", "{{user_id}}", "trial", "revoke"]
+        },
+        "description": "Revoke a user's current trial. This resets their trial status but maintains their free trial usage flag."
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string",
+      "description": "Base URL for the API server"
+    },
+    {
+      "key": "user_id",
+      "value": "example-user-id",
+      "type": "string",
+      "description": "ID of the user to manage free trial for"
+    }
+  ]
+}
