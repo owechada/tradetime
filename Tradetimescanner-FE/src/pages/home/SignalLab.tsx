@@ -14,24 +14,40 @@ import usePremiumHook from "../../hooks/usePremiumHook";
 import PackageSelectionmodal from "../../components/generic/PackageSelectionmodal";
 import TradeTimeStatus from "../../components/TradeTimeStatus";
 
-const Item: React.FC<{ mainActive: number; title: string; index: number }> = ({
+const Item: React.FC<{ mainActive: number; title: string; index: number; totalSteps: number }> = ({
   title,
   index,
   mainActive,
+  totalSteps,
 }) => {
+  const isActive = mainActive === index;
+  const isCompleted = mainActive > index;
+
   return (
-    <div
-      className={`flex gap-1 justify-center items-center  ${mainActive == index
-        ? " border-b py-3 border-primary rounded-lg text-primary"
-        : "opacity-60 text-gray-600 "
-        }   ${index == mainActive}`}
-    >
-      <CiLocationArrow1
-        size={30}
-        className="!text-primary  border rounded-full p-1"
-      />
-      <p className="">{title}</p>
-      <div className="w-[80px] h-[1px] bg-gray-300 mr-3 hidden md:block"></div>
+    <div className="flex items-center gap-2">
+      <div
+        className={`flex gap-2 items-center px-3 py-2.5 rounded-xl transition-all duration-300 ${
+          isActive
+            ? "bg-primary/10 text-primary border border-primary/20 shadow-sm"
+            : isCompleted
+            ? "text-green-600"
+            : "text-gray-400"
+        }`}
+      >
+        <div className={`flex items-center justify-center w-7 h-7 rounded-lg text-xs font-bold transition-all duration-300 ${
+          isActive
+            ? "bg-gradient-to-r from-primary to-blue-600 text-white shadow-md"
+            : isCompleted
+            ? "bg-green-100 text-green-600 border border-green-200"
+            : "bg-gray-100 text-gray-400 border border-gray-200"
+        }`}>
+          {isCompleted ? "✓" : index}
+        </div>
+        <p className={`text-sm font-medium whitespace-nowrap ${isActive ? "text-primary" : isCompleted ? "text-green-700" : "text-gray-500"}`}>{title}</p>
+      </div>
+      {index < totalSteps && (
+        <div className={`w-8 h-0.5 rounded-full hidden md:block transition-all duration-300 ${isCompleted ? "bg-green-300" : "bg-gray-200"}`} />
+      )}
     </div>
   );
 };
@@ -102,21 +118,12 @@ export default () => {
         {/* Main Content Areas */}
         <div className="bg-white/70 backdrop-blur-xl rounded-[2.5rem] p-6 md:p-10 border border-white shadow-2xl shadow-blue-500/5 items-center flex flex-col pt-8 space-y-4">
 
-          <div className="flex flex-col md:flex-row  my-2 mx-1  items-start justify-start gap-4">
-            <Item mainActive={mainActive} index={1} title="Send & Analyze" />
-            <Item
-              mainActive={mainActive}
-              index={2}
-              title="Stable Currency Pairs"
-            />
-            <Item
-              mainActive={mainActive}
-              index={3}
-              title="Trade Type & Duration"
-            />
-            <Item mainActive={mainActive} index={4} title="Get signal" />
+          <div className="flex flex-col md:flex-row my-2 mx-1 items-start md:items-center justify-center gap-2 md:gap-1 pb-4 border-b border-gray-100">
+            <Item mainActive={mainActive} index={1} title="Send & Analyze" totalSteps={4} />
+            <Item mainActive={mainActive} index={2} title="Stable Currency Pairs" totalSteps={4} />
+            <Item mainActive={mainActive} index={3} title="Trade Type & Duration" totalSteps={4} />
+            <Item mainActive={mainActive} index={4} title="Get signal" totalSteps={4} />
           </div>
-          <hr />
 
           <StepWizard
             className="w-full flex justify-center items-center"

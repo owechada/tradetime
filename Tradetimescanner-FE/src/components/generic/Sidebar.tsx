@@ -43,19 +43,19 @@ const Sidebar = ({
     <>
       {/* Mobile overlay backdrop */}
       {isMobile && isOverlay && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300"
           onClick={onClose}
         />
       )}
-      
+
       <div className={getSidebarClasses()}>
         {/* Mobile close button */}
         {isMobile && isOverlay && (
           <div className="flex justify-end p-4">
             <button
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
               aria-label="Close sidebar"
             >
               <IoMdClose size={20} className="text-gray-600" />
@@ -68,7 +68,7 @@ const Sidebar = ({
           <div className="flex justify-end p-4">
             <button
               onClick={onToggleCollapse}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
               aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               <IoMdMenu size={20} className="text-gray-600" />
@@ -76,21 +76,19 @@ const Sidebar = ({
           </div>
         )}
 
-        <div className={`${isMobile && isOverlay ? 'px-4 pb-6' : isTablet ? 'p-4' : 'p-6'} ${
+        <div className={`${isMobile && isOverlay ? 'px-4 pb-6' : isTablet ? 'p-4' : 'p-5'} ${
           isTablet && isCollapsed ? 'px-2' : ''
         }`}>
-          <div className={`${isTablet && isCollapsed ? 'mb-4' : 'mb-8'}`}>
+          <div className={`${isTablet && isCollapsed ? 'mb-4' : 'mb-6'}`}>
                 {(!isTablet || !isCollapsed) && (
               <>
-                <h2 className={`font-bold text-gray-900 mb-2 ${
-                  isMobile ? 'text-base' : 'text-lg'
-                }`}>Navigation</h2>
-                <div className="w-12 h-1 bg-gradient-to-r from-primary to-blue-600 rounded-full"></div>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Menu</p>
+                <div className="w-8 h-0.5 bg-gradient-to-r from-primary to-blue-600 rounded-full"></div>
               </>
             )}
           </div>
 
-          <nav className="space-y-2">
+          <nav className="space-y-1">
         {sidebarItems.map((item: any, index: number) => {
           const isActive =
             item.url
@@ -102,10 +100,10 @@ const Sidebar = ({
           return (
             <div
               key={index}
-              className={`group relative p-3 rounded-xl cursor-pointer font-medium text-sm transition-all duration-200 ${
+              className={`group relative p-2.5 rounded-xl cursor-pointer font-medium text-sm transition-all duration-200 ${
                 isActive
-                  ? "bg-gradient-to-r from-primary/10 to-blue-600/10 text-primary shadow-sm border border-primary/20"
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  ? "bg-gradient-to-r from-primary/10 to-blue-600/5 text-primary border border-primary/15"
+                  : "text-gray-600 hover:bg-gray-50/80 hover:text-gray-900"
               }`}
               onClick={() => {
                 if (item.name.toLowerCase().includes("telegram")) {
@@ -119,16 +117,16 @@ const Sidebar = ({
                 <div
                   className={`p-2 rounded-lg transition-all duration-200 ${
                     isActive
-                      ? "bg-gradient-to-r from-primary to-blue-600 text-white shadow-md"
-                      : "bg-gray-100 group-hover:bg-gray-200 text-gray-600"
+                      ? "bg-gradient-to-r from-primary to-blue-600 text-white shadow-md shadow-primary/25"
+                      : "bg-gray-100/80 group-hover:bg-gray-200/80 text-gray-500 group-hover:text-gray-700"
                   }`}
                 >
                   {item.icon}
                 </div>
                 {(!isTablet || !isCollapsed) && (
                   <span
-                    className={`font-medium ${
-                      isActive ? "text-primary" : "text-gray-700"
+                    className={`font-medium text-[13px] ${
+                      isActive ? "text-primary" : "text-gray-600 group-hover:text-gray-900"
                     }`}
                   >
                     {item.name}
@@ -137,7 +135,7 @@ const Sidebar = ({
               </div>
 
               {isActive && (
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-blue-600 rounded-r-full"></div>
+                <div className="absolute left-0 top-2 bottom-2 w-[3px] bg-gradient-to-b from-primary to-blue-600 rounded-r-full"></div>
               )}
             </div>
           );
@@ -145,17 +143,13 @@ const Sidebar = ({
       </nav>
 
           {(!isTablet || !isCollapsed) && (
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <div className="text-xs text-gray-500 font-medium mb-3">
-                Quick Stats
-              </div>
-              <div className="space-y-2">
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg border border-blue-200">
-                  <div className="text-xs text-blue-600 font-medium">
-                    Market Coverage
-                  </div>
-                  <div className="text-lg font-bold text-blue-700">Global</div>
+            <div className="mt-6 pt-5 border-t border-gray-100">
+              <div className="bg-gradient-to-br from-primary/5 to-blue-600/5 p-4 rounded-xl border border-primary/10">
+                <div className="text-[10px] text-primary/60 font-bold uppercase tracking-widest mb-1">
+                  Coverage
                 </div>
+                <div className="text-base font-bold text-gray-900">Global Markets</div>
+                <p className="text-xs text-gray-500 mt-1">Forex, Crypto, Indices</p>
               </div>
             </div>
           )}
